@@ -6,25 +6,22 @@ function putCharts() {
     //we get the data
     var temp = sheet.getDataRange();
     var data = sheet.getDataRange().getValues();
-    //we loop through the rows in the spreadsheet, and grab the row after
-    var lastRowQuestionNumber = false;
-    for(var i = 0; i < data.length; i++){
-	var firstCellInRow = data[i][0].toString().trim().split(' ');
-	if(lastRowQuestionNumber){
-	    //getRange(row, column, numRows, numColumns)
-	    //3 columns.
-	    //row and column indexed at 1
-	    var range = sheet.getRange(i, 2, 2, 3);
 
-	    var chart = sheet.newChart().asBarChart().setOption('dataLabel', 'value').setOption('series', {'dataLabel':'value'}).setLegendPosition(Charts.Position.NONE).setStacked().addRange(range)
+
+    for(var i = 1; i < data.length; i++){
+	
+	
+
+	//getRange(row, column, numRows, numColumns)
+	//3 columns.
+	//row and column indexed at 1
+	var range = sheet.getRange(i, 2, 2, 3);
+
+	var chart = sheet.newChart().asBarChart().setOption('dataLabel', 'value').setOption('series', {'dataLabel':'value'}).setLegendPosition(Charts.Position.NONE).setStacked().addRange(range)
 	        .setPosition(i, 6, 0, 0)
 	        .build();
-	    sheet.insertChart(chart);
-	    lastRowQuestionNumber = false;
-	}else if(firstCellInRow[0].toLowerCase() == 'question' && firstCellInRow.length == 2 && firstCellInRow[1] == '#'){
-	    //then the next row will be the results of the question
-	    lastRowQuestionNumber = true;
-	}
+	sheet.insertChart(chart);
+	
     }
 
 }
